@@ -19,7 +19,7 @@
   <idea-version since-build="120"/>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
+    on how to target different products -->
   <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
   -->
@@ -35,12 +35,20 @@
   <project-components>
     <!-- Add your project components here -->
       <component>
-          <implementation-class>org.macchiatow.tomato.ui.TomatoComponent</implementation-class>
+          <implementation-class>org.macchiatow.tomato.ui.Initialization</implementation-class>
       </component>
   </project-components>
 
   <actions>
     <!-- Add your actions here -->
+      <group id="TomatoGroup" text="Tomato" popup="true" icon="Tomato-Icon.png" >
+          <action id="StaartAction" class="org.macchiatow.tomato.ui.StartAction" text="Start"/>
+          <action id="Pause" class="org.macchiatow.tomato.ui.PauseAction" text="Pause"/>
+          <action id="ShortBreak" class="org.macchiatow.tomato.ui.ShortBreakAction" text="ShortBreakAction"/>
+          <action id="LongBreak" class="org.macchiatow.tomato.ui.LongBreakAction" text="LongBreakAction"/>
+          <add-to-group group-id="ToolsMenu" anchor="last"/>
+      </group>
+
   </actions>
 
 </idea-plugin>

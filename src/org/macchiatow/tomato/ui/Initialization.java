@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Created by Togrul Mageramov on 3/22/15.
  */
-public class TomatoComponent implements ProjectComponent {
+public class Initialization implements ProjectComponent {
     Project project;
     StatusBar statusBar;
 
-    public TomatoComponent(Project project) {
+    public Initialization(Project project) {
         this.project = project;
     }
 
