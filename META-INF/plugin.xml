@@ -35,7 +35,7 @@
   <project-components>
     <!-- Add your project components here -->
       <component>
-          <implementation-class>org.macchiatow.tomato.ui.Initialization</implementation-class>
+          <implementation-class>org.macchiatow.tomato.Initialization</implementation-class>
       </component>
   </project-components>
 

@@ -8,7 +8,7 @@ import com.intellij.openapi.wm.WindowManager;
 /**
  * Created by tmageramov on 23.03.2015.
  */
-public class LongBreakAction extends AnAction {
+public class LongBreakAction extends DefaultAction {
     TomatoWidget widget;
 
     public void actionPerformed(AnActionEvent e) {
@@ -16,9 +16,5 @@ public class LongBreakAction extends AnAction {
         widget.longBreak();
     }
 
-    private void init(Project p){
-        if (widget == null){
-            widget = (TomatoWidget) WindowManager.getInstance().getStatusBar(p).getWidget(Initialization.ID);
-        }
-    }
+
 }

@@ -10,6 +10,7 @@ import org.macchiatow.tomato.CountDownTimer;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.MINUTES;
+import static org.macchiatow.tomato.Initialization.ID;
 
 import java.awt.event.MouseEvent;
 
@@ -107,13 +108,13 @@ public class TomatoWidget implements StatusBarWidget {
     }
 
     private void update(){
-        statusBar.updateWidget(Initialization.ID);
+        statusBar.updateWidget(ID);
     }
 
     @NotNull
     @Override
     public String ID() {
-        return Initialization.ID;
+        return ID;
     }
 
     @Nullable

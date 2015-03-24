@@ -1,4 +1,4 @@
-package org.macchiatow.tomato.ui;
+package org.macchiatow.tomato;
 
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
@@ -6,6 +6,7 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import org.jetbrains.annotations.NotNull;
+import org.macchiatow.tomato.ui.TomatoWidget;
 
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class Initialization implements ProjectComponent {
-    static String ID = UUID.randomUUID().toString();
+    public static String ID = UUID.randomUUID().toString();
 
     Project project;
     StatusBar statusBar;

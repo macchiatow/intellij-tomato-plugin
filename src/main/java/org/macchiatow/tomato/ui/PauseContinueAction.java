@@ -8,17 +8,10 @@ import com.intellij.openapi.wm.WindowManager;
 /**
  * Created by Togrul Mageramov on 23.03.2015.
  */
-public class PauseContinueAction extends AnAction {
-    TomatoWidget widget;
-
+public class PauseContinueAction extends DefaultAction {
     public void actionPerformed(AnActionEvent e) {
         init(e.getProject());
         widget.pauseContinue();
     }
 
-    private void init(Project p){
-        if (widget == null){
-            widget = (TomatoWidget) WindowManager.getInstance().getStatusBar(p).getWidget(Initialization.ID);
-        }
-    }
 }
