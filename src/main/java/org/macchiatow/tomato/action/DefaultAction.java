@@ -1,8 +1,9 @@
-package org.macchiatow.tomato.ui;
+package org.macchiatow.tomato.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.WindowManager;
+import org.macchiatow.tomato.ui.TomatoWidget;
 
 import static org.macchiatow.tomato.Initialization.ID;
 

@@ -1,4 +1,4 @@
-package org.macchiatow.tomato.ui;
+package org.macchiatow.tomato.action;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
