@@ -8,12 +8,12 @@ import com.intellij.openapi.wm.WindowManager;
 /**
  * Created by Togrul Mageramov on 23.03.2015.
  */
-public class ShortBreakAction extends AnAction {
+public class PauseContinueAction extends AnAction {
     TomatoWidget widget;
 
     public void actionPerformed(AnActionEvent e) {
         init(e.getProject());
-        widget.shortBreak();
+        widget.pauseContinue();
     }
 
     private void init(Project p){

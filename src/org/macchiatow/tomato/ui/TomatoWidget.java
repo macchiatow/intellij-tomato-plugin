@@ -1,11 +1,15 @@
 package org.macchiatow.tomato.ui;
 
+import com.intellij.openapi.ui.popup.ListPopup;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.util.Consumer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,30 +24,52 @@ import java.util.concurrent.TimeUnit;
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class TomatoWidget implements StatusBarWidget {
-    String id = UUID.randomUUID().toString();
-    Date date = new Date();
+    private volatile long value;
+    private volatile int pomodoro = 0;
 
-    StatusBar statusBar;
-    WidgetPresentation presentation;
-    String timerValue = "00:00";
-    Timer timer = new Timer();
-    TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            Date now = new Date();
-            timerValue = String.format("%d:%d",
-                    TimeUnit.MILLISECONDS.toMinutes(now.getTime() - date.getTime()),
-                    TimeUnit.MILLISECONDS.toSeconds(now.getTime() - date.getTime()) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(now.getTime() - date.getTime()))
-            );
-            update();
+    private StatusBar statusBar;
+    private WidgetPresentation presentation;
+    private Timer timer;
+    private TimerTask timerTask;
+    private boolean paused = false;
+
+    public void pomodoro(){
+        value = 25 * 60 * 1000;
+        startTimer();
+    }
+
+    private void startTimer(){
+        this.timer = new Timer();
+        this.timerTask = new TomatoTask();
+        timer.schedule(timerTask, 1000, 1000);
+    }
+
+    public void shortBreak(){
+
+    }
+
+    public void longBreak(){
+
+    }
+
+    public void pauseContinue(){
+        if (!paused){
+            timer.cancel();
+        } else {
+            startTimer();
         }
-    };
+
+        paused = !paused;
+    }
+
+    public void reset(){
+
+    }
 
     @NotNull
     @Override
     public String ID() {
-        return id;
+        return Initialization.id;
     }
 
     @Nullable
@@ -59,7 +85,6 @@ public class TomatoWidget implements StatusBarWidget {
     @Override
     public void install(@NotNull StatusBar statusBar) {
         this.statusBar = statusBar;
-        timer.schedule(timerTask, 1000, 1000);
         update();
     }
 
@@ -69,7 +94,7 @@ public class TomatoWidget implements StatusBarWidget {
     }
 
     private void update(){
-        statusBar.updateWidget(id);
+        statusBar.updateWidget(Initialization.id);
     }
 
     class TomatoWidgetPresentation implements TextPresentation {
@@ -88,7 +113,8 @@ public class TomatoWidget implements StatusBarWidget {
         @NotNull
         @Override
         public String getText() {
-            return timerValue;
+            return String.format("%02d %02d:%02d", pomodoro, MILLISECONDS.toMinutes(value),
+                    MILLISECONDS.toSeconds(value) - MINUTES.toSeconds(MILLISECONDS.toMinutes(value)));
         }
 
         @NotNull
@@ -99,7 +125,20 @@ public class TomatoWidget implements StatusBarWidget {
 
         @Override
         public float getAlignment() {
-            return 0;
+            return 0.5f;
         }
     }
+
+    class TomatoTask extends TimerTask {
+        @Override
+        public void run() {
+            value -= 1000;
+            if (value < 0){
+                pomodoro += 1;
+                timer.cancel();
+            }
+            update();
+        }
+    }
+
 }

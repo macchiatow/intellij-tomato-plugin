@@ -7,10 +7,14 @@ import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
+
 /**
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class Initialization implements ProjectComponent {
+    static String id = UUID.randomUUID().toString();
+
     Project project;
     StatusBar statusBar;
 
@@ -28,7 +32,7 @@ public class Initialization implements ProjectComponent {
 
     @NotNull
     public String getComponentName() {
-        return "SomeP";
+        return "TomatoPlugin";
     }
 
     @Override
