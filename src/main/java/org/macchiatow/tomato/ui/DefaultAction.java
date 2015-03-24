@@ -7,7 +7,7 @@ import com.intellij.openapi.wm.WindowManager;
 import static org.macchiatow.tomato.Initialization.ID;
 
 /**
- * Created by togrul on 3/24/15.
+ * Created by Togrul Mageramov on 3/24/15.
  */
 public abstract class DefaultAction extends AnAction {
     TomatoWidget widget;

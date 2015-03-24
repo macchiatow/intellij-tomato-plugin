@@ -6,15 +6,13 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.WindowManager;
 
 /**
- * Created by tmageramov on 23.03.2015.
+ * Created by Togrul Mageramov on 23.03.2015.
  */
 public class LongBreakAction extends DefaultAction {
-    TomatoWidget widget;
 
     public void actionPerformed(AnActionEvent e) {
         init(e.getProject());
         widget.longBreak();
     }
-
 
 }
