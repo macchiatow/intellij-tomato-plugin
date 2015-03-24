@@ -18,7 +18,7 @@ public class ShortBreakAction extends AnAction {
 
     private void init(Project p){
         if (widget == null){
-            widget = (TomatoWidget) WindowManager.getInstance().getStatusBar(p).getWidget(Initialization.id);
+            widget = (TomatoWidget) WindowManager.getInstance().getStatusBar(p).getWidget(Initialization.ID);
         }
     }
 }

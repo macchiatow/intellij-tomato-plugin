@@ -42,7 +42,7 @@
   <actions>
     <!-- Add your actions here -->
       <group id="TomatoGroup" text="Tomato" popup="true" >
-          <action id="StartAction" class="org.macchiatow.tomato.ui.StartAction" text="Start" />
+          <action id="PomodoroAction" class="org.macchiatow.tomato.ui.PomodoroAction" text="Pomodoro" />
           <action id="PauseContinueAction" class="org.macchiatow.tomato.ui.PauseContinueAction" text="Pause/Continue"/>
           <action id="ShortBreakAction" class="org.macchiatow.tomato.ui.ShortBreakAction" text="Short break"/>
           <action id="LongBreakAction" class="org.macchiatow.tomato.ui.LongBreakAction" text="Long break"/>

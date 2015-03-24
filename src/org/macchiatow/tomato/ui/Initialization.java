@@ -13,7 +13,7 @@ import java.util.UUID;
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class Initialization implements ProjectComponent {
-    static String id = UUID.randomUUID().toString();
+    static String ID = UUID.randomUUID().toString();
 
     Project project;
     StatusBar statusBar;
@@ -22,12 +22,13 @@ public class Initialization implements ProjectComponent {
         this.project = project;
     }
 
-    public void initComponent() {
-
-    }
-
-    public void disposeComponent() {
-        // TODO: insert component disposal logic here
+    @Override
+    public void projectOpened() {
+        statusBar = WindowManager.getInstance().getStatusBar(project);
+        if (statusBar != null) {
+            final TomatoWidget w= new TomatoWidget();
+            statusBar.addWidget(w, "after " + (SystemInfo.isMac ? "Encoding" : "InsertOverwrite"), project);
+        }
     }
 
     @NotNull
@@ -36,19 +37,11 @@ public class Initialization implements ProjectComponent {
     }
 
     @Override
-    public void projectOpened() {
-        statusBar= WindowManager.getInstance().getStatusBar(project);
-        if (statusBar != null) {
-            final TomatoWidget w= new TomatoWidget();
-            statusBar.addWidget(w, "after " + (SystemInfo.isMac ? "Encoding" : "InsertOverwrite"), project);
-        }
-    }
+    public void initComponent() {}
 
     @Override
-    public void projectClosed() {
+    public void disposeComponent() {}
 
-    }
-
-
-
+    @Override
+    public void projectClosed() {}
 }
