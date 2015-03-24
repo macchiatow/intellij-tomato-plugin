@@ -139,7 +139,7 @@ public class TomatoWidget implements StatusBarWidget {
         @NotNull
         @Override
         public String getText() {
-            return String.format("%02d %02d:%02d", pomodoro, MILLISECONDS.toMinutes(value),
+            return String.format("%d %02d:%02d", pomodoro, MILLISECONDS.toMinutes(value),
                     MILLISECONDS.toSeconds(value) - MINUTES.toSeconds(MILLISECONDS.toMinutes(value)));
         }
 
