@@ -7,6 +7,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.macchiatow.tomato.CountDownTimer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.macchiatow.tomato.Initialization.ID;
 
 /**
@@ -23,9 +26,13 @@ public class TomatoWidget implements StatusBarWidget {
     private CountDownTimer shortBreakTimer;
     private CountDownTimer longBreakTimer;
     private CountDownTimer activeTimer;
+    private List<Function> subscriptionOnFinish;
+    private List<Function> subscriptionOnActivate;
 
     public TomatoWidget() {
         presentation = new TomatoWidgetPresentation();
+        subscriptionOnFinish = new ArrayList<Function>();
+        subscriptionOnActivate = new ArrayList<Function>();
 
         pomodoroTimer = new CountDownTimer(25 * 60 * 1000,
                 new Function<Long, Void>() {
@@ -41,6 +48,7 @@ public class TomatoWidget implements StatusBarWidget {
                     public Void apply(@Nullable Void aVoid) {
                         pomodoro += 1;
                         if (loop) shortBreak();
+                        notifyFinish();
                         return null;
                     }
                 });
@@ -58,6 +66,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         if (loop) pomodoro();
+                        notifyFinish();
                         return null;
                     }
                 });
@@ -75,6 +84,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         if (loop) pomodoro();
+                        notifyFinish();
                         return null;
                     }
                 });
@@ -98,10 +108,6 @@ public class TomatoWidget implements StatusBarWidget {
         activeTimer.startPause();
     }
 
-    public boolean isActive(){
-        return countDown > 0;
-    }
-
     public void setPomodoro(int pomodoro) {
         this.pomodoro = pomodoro;
         update();
@@ -117,12 +123,33 @@ public class TomatoWidget implements StatusBarWidget {
         longBreakTimer.reset();
         activeTimer = timer;
         activeTimer.startPause();
+        notifyActivate();
     }
 
     private void update(){
         presentation.setPomodoro(pomodoro);
         presentation.setCountDown(countDown);
         statusBar.updateWidget(ID);
+    }
+
+    public void addSubscriberOnFinish(Function f){
+        subscriptionOnFinish.add(f);
+    }
+
+    public void addSubscriberOnActivate(Function f){
+        subscriptionOnActivate.add(f);
+    }
+
+    private void notifyFinish(){
+        for (Function<Void, Void> f : subscriptionOnFinish){
+            f.apply(null);
+        }
+    }
+
+    private void notifyActivate(){
+        for (Function<Void, Void> f : subscriptionOnActivate){
+            f.apply(null);
+        }
     }
 
     @NotNull
