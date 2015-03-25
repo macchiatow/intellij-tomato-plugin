@@ -10,6 +10,7 @@ import com.intellij.openapi.wm.WindowManager;
  */
 public class LongBreakAction extends DefaultAction {
 
+    @Override
     public void actionPerformed(AnActionEvent e) {
         init(e.getProject());
         widget.longBreak();

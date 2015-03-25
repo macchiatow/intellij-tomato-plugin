@@ -15,6 +15,7 @@ import static org.macchiatow.tomato.Initialization.ID;
 public class TomatoWidget implements StatusBarWidget {
     private volatile long countDown;
     private volatile int pomodoro;
+    private volatile boolean loop;
 
     private StatusBar statusBar;
     private TomatoWidgetPresentation presentation;
@@ -39,6 +40,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         pomodoro += 1;
+                        if (loop) shortBreak();
                         return null;
                     }
                 });
@@ -55,6 +57,7 @@ public class TomatoWidget implements StatusBarWidget {
                 new Function<Void, Void>() {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
+                        if (loop) pomodoro();
                         return null;
                     }
                 });
@@ -71,6 +74,7 @@ public class TomatoWidget implements StatusBarWidget {
                 new Function<Void, Void>() {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
+                        if (loop) pomodoro();
                         return null;
                     }
                 });
@@ -90,6 +94,15 @@ public class TomatoWidget implements StatusBarWidget {
 
     public void pauseContinue(){
         activeTimer.startPause();
+    }
+
+    public void setPomodoro(int pomodoro) {
+        this.pomodoro = pomodoro;
+        update();
+    }
+
+    public void setLoop(boolean loop) {
+        this.loop = loop;
     }
 
     private void startTimer(CountDownTimer timer){

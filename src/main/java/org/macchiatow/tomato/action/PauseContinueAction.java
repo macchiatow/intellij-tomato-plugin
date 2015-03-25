@@ -10,6 +10,7 @@ import com.intellij.openapi.wm.WindowManager;
  */
 public class PauseContinueAction extends DefaultAction {
 
+    @Override
     public void actionPerformed(AnActionEvent e) {
         init(e.getProject());
         widget.pauseContinue();

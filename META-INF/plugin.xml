@@ -33,21 +33,41 @@
   </application-components>
 
   <project-components>
-    <!-- Add your project components here -->
       <component>
           <implementation-class>org.macchiatow.tomato.Initialization</implementation-class>
       </component>
   </project-components>
 
   <actions>
-    <!-- Add your actions here -->
       <group id="TomatoGroup" text="Tomato" popup="true" icon="/icon16.png">
           <action id="PomodoroAction" class="org.macchiatow.tomato.action.PomodoroAction" text="Pomodoro" />
-          <action id="PauseContinueAction" class="org.macchiatow.tomato.action.PauseContinueAction" text="Pause/Continue"/>
           <action id="ShortBreakAction" class="org.macchiatow.tomato.action.ShortBreakAction" text="Short break"/>
           <action id="LongBreakAction" class="org.macchiatow.tomato.action.LongBreakAction" text="Long break"/>
+          <action id="PauseContinueAction" class="org.macchiatow.tomato.action.PauseContinueAction" text="Pause/Continue"/>
+          <action id="LoopAction" class="org.macchiatow.tomato.action.LoopAction" text="Loop"/>
           <add-to-group group-id="ToolsMenu" anchor="last"/>
       </group>
+      <group id="TomatoCountGroup" text="Set pomodoro" popup="true">
+          <action id="ResetAction0" class="org.macchiatow.tomato.action.ResetAction" text="0" />
+          <action id="ResetAction1" class="org.macchiatow.tomato.action.ResetAction" text="1" />
+          <action id="ResetAction2" class="org.macchiatow.tomato.action.ResetAction" text="2" />
+          <action id="ResetAction3" class="org.macchiatow.tomato.action.ResetAction" text="3" />
+          <action id="ResetAction4" class="org.macchiatow.tomato.action.ResetAction" text="4" />
+          <action id="ResetAction5" class="org.macchiatow.tomato.action.ResetAction" text="5" />
+          <action id="ResetAction6" class="org.macchiatow.tomato.action.ResetAction" text="6" />
+          <action id="ResetAction7" class="org.macchiatow.tomato.action.ResetAction" text="7" />
+          <action id="ResetAction8" class="org.macchiatow.tomato.action.ResetAction" text="8" />
+          <action id="ResetAction9" class="org.macchiatow.tomato.action.ResetAction" text="9" />
+          <action id="ResetAction10" class="org.macchiatow.tomato.action.ResetAction" text="10" />
+          <action id="ResetAction11" class="org.macchiatow.tomato.action.ResetAction" text="11" />
+          <action id="ResetAction12" class="org.macchiatow.tomato.action.ResetAction" text="12" />
+          <action id="ResetAction13" class="org.macchiatow.tomato.action.ResetAction" text="13" />
+          <action id="ResetAction14" class="org.macchiatow.tomato.action.ResetAction" text="14" />
+          <action id="ResetAction15" class="org.macchiatow.tomato.action.ResetAction" text="15" />
+          <action id="ResetAction16" class="org.macchiatow.tomato.action.ResetAction" text="16" />
+          <add-to-group group-id="TomatoGroup" anchor="last"/>
+      </group>
+
 
   </actions>
 
