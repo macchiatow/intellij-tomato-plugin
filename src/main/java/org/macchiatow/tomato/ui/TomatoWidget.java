@@ -78,6 +78,8 @@ public class TomatoWidget implements StatusBarWidget {
                         return null;
                     }
                 });
+
+        activeTimer = pomodoroTimer;
     }
 
     public void pomodoro(){
@@ -96,6 +98,10 @@ public class TomatoWidget implements StatusBarWidget {
         activeTimer.startPause();
     }
 
+    public boolean isActive(){
+        return countDown > 0;
+    }
+
     public void setPomodoro(int pomodoro) {
         this.pomodoro = pomodoro;
         update();
@@ -110,7 +116,7 @@ public class TomatoWidget implements StatusBarWidget {
         shortBreakTimer.reset();
         longBreakTimer.reset();
         activeTimer = timer;
-        pauseContinue();
+        activeTimer.startPause();
     }
 
     private void update(){

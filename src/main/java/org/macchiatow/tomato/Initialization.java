@@ -15,20 +15,20 @@ import java.util.UUID;
  */
 public class Initialization implements ProjectComponent {
     public static String ID = UUID.randomUUID().toString();
+    public static Project PROJECT;
 
-    Project project;
     StatusBar statusBar;
 
     public Initialization(Project project) {
-        this.project = project;
+        this.PROJECT = project;
     }
 
     @Override
     public void projectOpened() {
-        statusBar = WindowManager.getInstance().getStatusBar(project);
+        statusBar = WindowManager.getInstance().getStatusBar(PROJECT);
         if (statusBar != null) {
             final TomatoWidget w= new TomatoWidget();
-            statusBar.addWidget(w, "after " + (SystemInfo.isMac ? "Encoding" : "InsertOverwrite"), project);
+            statusBar.addWidget(w, "after " + (SystemInfo.isMac ? "Encoding" : "InsertOverwrite"), PROJECT);
         }
     }
 

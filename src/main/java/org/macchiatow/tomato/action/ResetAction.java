@@ -9,7 +9,6 @@ public class ResetAction extends DefaultAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        init(e.getProject());
         widget.setPomodoro(Integer.valueOf(e.getPresentation().getText()));
     }
 

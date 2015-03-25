@@ -3,6 +3,7 @@ package org.macchiatow.tomato.action;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.util.IconLoader;
+import org.macchiatow.tomato.Initialization;
 
 /**
  * Created by Togrul Mageramov on 25.03.2015.
@@ -13,7 +14,6 @@ public class LoopAction extends DefaultAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        init(e.getProject());
         if (loop){
             e.getPresentation().setIcon(null);
         } else {

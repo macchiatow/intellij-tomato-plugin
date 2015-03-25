@@ -12,7 +12,6 @@ public class PomodoroAction extends DefaultAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        init(e.getProject());
         widget.pomodoro();
     }
 
