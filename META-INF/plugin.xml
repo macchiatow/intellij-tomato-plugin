@@ -1,8 +1,8 @@
 <idea-plugin version="2">
   <id>org.macchiatow.plugin.tomato</id>
   <name>Tomato Timer</name>
-  <version>1.0.2</version>
-  <vendor email="cmeisters@gmail.com" url="http://www.macchiatow.org">macchiatow</vendor>
+  <version>1.0.1</version>
+  <vendor email="cmeisters@gmail.com" url="https://github.com/macchiatow/intellij-tomato-plugin">macchiatow</vendor>
 
   <description><![CDATA[
       <em>Tomato plugin is a flexible and easy to use Pomodoro Technique timer.</em>
