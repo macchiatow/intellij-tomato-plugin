@@ -62,8 +62,8 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         pomodoro += 1;
-                        if (loop) shortBreak();
                         notifyFinish();
+                        if (loop) shortBreak();
                         return null;
                     }
                 });
@@ -80,8 +80,8 @@ public class TomatoWidget implements StatusBarWidget {
                 new Function<Void, Void>() {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
-                        if (loop) pomodoro();
                         notifyFinish();
+                        if (loop) pomodoro();
                         return null;
                     }
                 });
@@ -98,8 +98,8 @@ public class TomatoWidget implements StatusBarWidget {
                 new Function<Void, Void>() {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
-                        if (loop) pomodoro();
                         notifyFinish();
+                        if (loop) pomodoro();
                         return null;
                     }
                 });
