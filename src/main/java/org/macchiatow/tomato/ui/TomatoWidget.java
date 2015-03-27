@@ -16,6 +16,7 @@
 package org.macchiatow.tomato.ui;
 
 import com.google.common.base.Function;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import org.jetbrains.annotations.NotNull;
@@ -31,23 +32,33 @@ import static org.macchiatow.tomato.Initialization.ID;
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class TomatoWidget implements StatusBarWidget {
+
     private volatile long countDown;
     private volatile int pomodoro;
     private volatile boolean loop;
 
     private StatusBar statusBar;
     private TomatoWidgetPresentation presentation;
+
     private CountDownTimer pomodoroTimer;
     private CountDownTimer shortBreakTimer;
     private CountDownTimer longBreakTimer;
     private CountDownTimer activeTimer;
+
     private List<Function> subscriptionOnFinish;
     private List<Function> subscriptionOnActivate;
+
+    private TomatoNotification plusOneNotification;
+    private TomatoNotification breakFinishedNotification;
+
 
     public TomatoWidget() {
         presentation = new TomatoWidgetPresentation();
         subscriptionOnFinish = new ArrayList<Function>();
         subscriptionOnActivate = new ArrayList<Function>();
+        plusOneNotification = new TomatoNotification("+1 pomodoro", 2000);
+        breakFinishedNotification = new TomatoNotification("Break finished", 2000);
+
 
         pomodoroTimer = new CountDownTimer(25 * 60 * 1000,
                 new Function<Long, Void>() {
@@ -63,6 +74,7 @@ public class TomatoWidget implements StatusBarWidget {
                     public Void apply(@Nullable Void aVoid) {
                         pomodoro += 1;
                         notifyFinish();
+                        Notifications.Bus.notify(plusOneNotification);
                         if (loop) shortBreak();
                         return null;
                     }
@@ -81,6 +93,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
+                        Notifications.Bus.notify(breakFinishedNotification);
                         if (loop) pomodoro();
                         return null;
                     }
@@ -99,6 +112,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
+                        Notifications.Bus.notify(breakFinishedNotification);
                         if (loop) pomodoro();
                         return null;
                     }
@@ -147,11 +161,11 @@ public class TomatoWidget implements StatusBarWidget {
         statusBar.updateWidget(ID);
     }
 
-    public void addSubscriberOnFinish(Function f){
+    public void addSubscriberOnFinish(Function<Void, Void> f){
         subscriptionOnFinish.add(f);
     }
 
-    public void addSubscriberOnActivate(Function f){
+    public void addSubscriberOnActivate(Function<Void, Void> f){
         subscriptionOnActivate.add(f);
     }
 

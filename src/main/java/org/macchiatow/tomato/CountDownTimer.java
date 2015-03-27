@@ -24,15 +24,19 @@ import java.util.TimerTask;
  * Created by Togrul Mageramov on 3/24/2015.
  */
 public class CountDownTimer {
-    private long value;
-    private long creationValue;
-    private boolean paused;
-    private boolean finished;
+
+    private static long ONE_SECOND = 1000;
+
+    private volatile long value;
+    private volatile long creationValue;
+    private volatile boolean paused;
+    private volatile boolean finished;
+
     private Timer timer;
+
     private Function<Long, Void> onTick;
     private Function<Void, Void> onFinished;
 
-    private static long ONE_SECOND = 1000;
 
     public CountDownTimer(long milliseconds, Function<Long, Void> onTick, Function<Void, Void> onFinished){
         this.onTick = onTick;

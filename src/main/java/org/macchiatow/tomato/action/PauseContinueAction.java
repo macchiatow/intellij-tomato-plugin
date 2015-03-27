@@ -25,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
  * Created by Togrul Mageramov on 3/23/2015.
  */
 public class PauseContinueAction extends DefaultAction {
+
     Presentation presentation;
 
     public PauseContinueAction() {

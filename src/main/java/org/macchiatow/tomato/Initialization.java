@@ -29,10 +29,11 @@ import java.util.UUID;
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class Initialization implements ProjectComponent {
+
     public static String ID = UUID.randomUUID().toString();
     public static Project PROJECT;
 
-    StatusBar statusBar;
+    private StatusBar statusBar;
 
     public Initialization(Project project) {
         this.PROJECT = project;

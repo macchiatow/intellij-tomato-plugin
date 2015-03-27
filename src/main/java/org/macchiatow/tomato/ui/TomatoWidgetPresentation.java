@@ -29,6 +29,7 @@ import static java.util.concurrent.TimeUnit.MINUTES;
  * Created by Togrul Mageramov on 3/24/15.
  */
 class TomatoWidgetPresentation implements StatusBarWidget.TextPresentation {
+
     private volatile long pomodoro;
     private volatile long countDown;
 

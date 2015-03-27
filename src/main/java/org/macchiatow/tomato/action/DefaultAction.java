@@ -27,6 +27,7 @@ import static org.macchiatow.tomato.Initialization.ID;
  * Created by Togrul Mageramov on 3/24/15.
  */
 public abstract class DefaultAction extends AnAction {
+
     TomatoWidget widget;
 
     public DefaultAction() {
