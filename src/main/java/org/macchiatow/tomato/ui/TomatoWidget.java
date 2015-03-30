@@ -34,11 +34,10 @@ import static org.macchiatow.tomato.ui.TomatoNotification.showNotification;
  */
 public class TomatoWidget implements StatusBarWidget {
 
-    private static int NOTIFICATION_FADEOUT_TIME = 10 * 1000;
+    private static int NOTIFICATION_FADEOUT_TIME = 20 * 1000;
 
     private volatile long countDown;
     private volatile int pomodoro;
-    private volatile boolean loop;
 
     private StatusBar statusBar;
     private TomatoWidgetPresentation presentation;
@@ -71,7 +70,6 @@ public class TomatoWidget implements StatusBarWidget {
                         pomodoro += 1;
                         notifyFinish();
                         showNotification("+1 pomodoro", NOTIFICATION_FADEOUT_TIME);
-                        if (loop) shortBreak();
                         return null;
                     }
                 });
@@ -90,7 +88,6 @@ public class TomatoWidget implements StatusBarWidget {
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
                         showNotification("Break finished", NOTIFICATION_FADEOUT_TIME);
-                        if (loop) pomodoro();
                         return null;
                     }
                 });
@@ -109,7 +106,6 @@ public class TomatoWidget implements StatusBarWidget {
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
                         showNotification("Break finished", NOTIFICATION_FADEOUT_TIME);
-                        if (loop) pomodoro();
                         return null;
                     }
                 });
@@ -136,10 +132,6 @@ public class TomatoWidget implements StatusBarWidget {
     public void setPomodoro(int pomodoro) {
         this.pomodoro = pomodoro;
         updateUI();
-    }
-
-    public void setLoop(boolean loop) {
-        this.loop = loop;
     }
 
     private void startTimer(CountDownTimer timer){

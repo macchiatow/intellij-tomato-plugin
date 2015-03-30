@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>org.macchiatow.plugin.tomato</id>
-  <name>Tomato Timer</name>
-  <version>1.0.1</version>
+  <name>Tomato</name>
+  <version>1.0.3</version>
   <vendor email="cmeisters@gmail.com" url="https://github.com/macchiatow/intellij-tomato-plugin">macchiatow</vendor>
 
   <description><![CDATA[
@@ -30,7 +30,6 @@
           <action id="ShortBreakAction" class="org.macchiatow.tomato.action.ShortBreakAction" text="Short break"/>
           <action id="LongBreakAction" class="org.macchiatow.tomato.action.LongBreakAction" text="Long break"/>
           <action id="PauseContinueAction" class="org.macchiatow.tomato.action.PauseContinueAction" text="Pause/Continue"/>
-          <action id="LoopAction" class="org.macchiatow.tomato.action.LoopAction" text="Loop"/>
           <add-to-group group-id="ToolsMenu" anchor="last"/>
       </group>
       <group id="TomatoCountGroup" text="Set pomodoro" popup="true">
