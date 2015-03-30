@@ -40,7 +40,7 @@ public class TomatoWidget implements StatusBarWidget {
     private volatile int pomodoro;
 
     private StatusBar statusBar;
-    private TomatoWidgetPresentation presentation;
+    private TomatoWidgetPopupPresentation presentation;
 
     private CountDownTimer pomodoroTimer;
     private CountDownTimer shortBreakTimer;
@@ -51,7 +51,7 @@ public class TomatoWidget implements StatusBarWidget {
     private List<Function<Void, Void>> subscriptionOnActivate;
 
     public TomatoWidget() {
-        presentation = new TomatoWidgetPresentation();
+        presentation = new TomatoWidgetPopupPresentation();
         subscriptionOnFinish = newArrayList();
         subscriptionOnActivate = newArrayList();
 
