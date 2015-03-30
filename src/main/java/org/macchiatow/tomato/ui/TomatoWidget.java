@@ -16,22 +16,25 @@
 package org.macchiatow.tomato.ui;
 
 import com.google.common.base.Function;
-import com.intellij.notification.Notifications;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.StatusBarWidget;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.macchiatow.tomato.CountDownTimer;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.macchiatow.tomato.Initialization.ID;
+
+import static org.macchiatow.tomato.ui.TomatoNotification.showNotification;
 
 /**
  * Created by Togrul Mageramov on 3/22/15.
  */
 public class TomatoWidget implements StatusBarWidget {
+
+    private static int NOTIFICATION_FADEOUT_TIME = 10 * 1000;
 
     private volatile long countDown;
     private volatile int pomodoro;
@@ -45,27 +48,20 @@ public class TomatoWidget implements StatusBarWidget {
     private CountDownTimer longBreakTimer;
     private CountDownTimer activeTimer;
 
-    private List<Function> subscriptionOnFinish;
-    private List<Function> subscriptionOnActivate;
-
-    private TomatoNotification plusOneNotification;
-    private TomatoNotification breakFinishedNotification;
-
+    private List<Function<Void, Void>> subscriptionOnFinish;
+    private List<Function<Void, Void>> subscriptionOnActivate;
 
     public TomatoWidget() {
         presentation = new TomatoWidgetPresentation();
-        subscriptionOnFinish = new ArrayList<Function>();
-        subscriptionOnActivate = new ArrayList<Function>();
-        plusOneNotification = new TomatoNotification("+1 pomodoro", 2000);
-        breakFinishedNotification = new TomatoNotification("Break finished", 2000);
-
+        subscriptionOnFinish = newArrayList();
+        subscriptionOnActivate = newArrayList();
 
         pomodoroTimer = new CountDownTimer(25 * 60 * 1000,
                 new Function<Long, Void>() {
                     @Override
                     public Void apply(@Nullable Long aLong) {
                         countDown = aLong;
-                        update();
+                        updateUI();
                         return null;
                     }
                 },
@@ -74,7 +70,7 @@ public class TomatoWidget implements StatusBarWidget {
                     public Void apply(@Nullable Void aVoid) {
                         pomodoro += 1;
                         notifyFinish();
-                        Notifications.Bus.notify(plusOneNotification);
+                        showNotification("+1 pomodoro", NOTIFICATION_FADEOUT_TIME);
                         if (loop) shortBreak();
                         return null;
                     }
@@ -85,7 +81,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Long aLong) {
                         countDown = aLong;
-                        update();
+                        updateUI();
                         return null;
                     }
                 },
@@ -93,7 +89,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
-                        Notifications.Bus.notify(breakFinishedNotification);
+                        showNotification("Break finished", NOTIFICATION_FADEOUT_TIME);
                         if (loop) pomodoro();
                         return null;
                     }
@@ -104,7 +100,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Long aLong) {
                         countDown = aLong;
-                        update();
+                        updateUI();
                         return null;
                     }
                 },
@@ -112,7 +108,7 @@ public class TomatoWidget implements StatusBarWidget {
                     @Override
                     public Void apply(@Nullable Void aVoid) {
                         notifyFinish();
-                        Notifications.Bus.notify(breakFinishedNotification);
+                        showNotification("Break finished", NOTIFICATION_FADEOUT_TIME);
                         if (loop) pomodoro();
                         return null;
                     }
@@ -139,7 +135,7 @@ public class TomatoWidget implements StatusBarWidget {
 
     public void setPomodoro(int pomodoro) {
         this.pomodoro = pomodoro;
-        update();
+        updateUI();
     }
 
     public void setLoop(boolean loop) {
@@ -155,7 +151,7 @@ public class TomatoWidget implements StatusBarWidget {
         notifyActivate();
     }
 
-    private void update(){
+    private void updateUI(){
         presentation.setPomodoro(pomodoro);
         presentation.setCountDown(countDown);
         statusBar.updateWidget(ID);
@@ -196,7 +192,7 @@ public class TomatoWidget implements StatusBarWidget {
     @Override
     public void install(@NotNull StatusBar statusBar) {
         this.statusBar = statusBar;
-        update();
+        updateUI();
     }
 
     @Override

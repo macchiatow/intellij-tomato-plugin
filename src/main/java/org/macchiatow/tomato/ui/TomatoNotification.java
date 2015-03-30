@@ -1,14 +1,16 @@
 package org.macchiatow.tomato.ui;
 
 import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationGroup;
 import com.intellij.notification.NotificationType;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
+import com.intellij.ui.BalloonImpl;
 import org.jetbrains.annotations.Nullable;
+import org.macchiatow.tomato.Initialization;
 
 import javax.swing.*;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import static com.intellij.notification.NotificationDisplayType.STICKY_BALLOON;
 
 /**
  * Created by Togrul Mageramov on 3/27/15.
@@ -17,14 +19,16 @@ public class TomatoNotification extends Notification {
 
     private static final String TITLE = "Tomato";
 
-    private long milliseconds;
+    private int fadeoutTime;
 
-    private Timer timer;
-    private TimerTask task;
+    public static void showNotification(String message, int fadeoutTime){
+        new TomatoNotification(message, fadeoutTime).showNotification();
+    }
 
-    public TomatoNotification(String content, long milliseconds) {
-        super(TITLE, TITLE, content, NotificationType.INFORMATION);
-        this.milliseconds = milliseconds;
+    private TomatoNotification(String message, int fadeoutTime) {
+        super(TITLE, TITLE, message, NotificationType.INFORMATION);
+        new NotificationGroup(TITLE, STICKY_BALLOON, true);
+        this.fadeoutTime = fadeoutTime;
     }
 
     @Nullable
@@ -33,18 +37,11 @@ public class TomatoNotification extends Notification {
         return IconLoader.getIcon("/icon32.png");
     }
 
-    @Override
-    public void notify(@Nullable Project project) {
-        super.notify(project);
-
-        task = new TimerTask() {
-            @Override
-            public void run() {
-               hideBalloon();
-            }
-        };
-
-        timer = new Timer();
-        timer.schedule(task, milliseconds, 1);
+    private void showNotification(){
+        notify(Initialization.PROJECT);
+        while (this.getBalloon() == null){}
+        this.getBalloon().setAnimationEnabled(true);
+        ((BalloonImpl)this.getBalloon()).startFadeoutTimer(fadeoutTime);
     }
+
 }
