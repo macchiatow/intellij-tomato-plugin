@@ -15,33 +15,16 @@
  */
 package org.macchiatow.tomato.action;
 
-import com.intellij.notification.Notification;
-import com.intellij.notification.NotificationDisplayType;
-import com.intellij.notification.NotificationType;
-import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.ui.popup.Balloon;
-import com.intellij.openapi.ui.popup.BalloonBuilder;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.vcs.VcsNotifier;
-import com.intellij.openapi.vcs.roots.VcsRootProblemNotifier;
-import com.intellij.ui.BalloonImpl;
-import com.intellij.ui.LightColors;
-import org.macchiatow.tomato.ui.TomatoNotification;
 
 /**
  * Created by Togrul Mageramov on 3/23/2015.
  */
 public class PomodoroAction extends DefaultAction {
-    TomatoNotification notification;
 
     @Override
     public void actionPerformed(AnActionEvent e) {
-        //widget.pomodoro();
-
-        notification = new TomatoNotification("ffs", 2000);
-        notification.notify(e.getProject());
-
+        widget.pomodoro();
     }
 
 }
